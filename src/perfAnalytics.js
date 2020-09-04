@@ -1,33 +1,36 @@
 (function () {
-  var performanceTiming = performance.timing;
-  var ttfb = performanceTiming.responseStart;
+  var logStyle =
+    "color: green; font-weight: bold; font-size: 14px; text-transform: uppercase";
+
+  var pageNav = performance.getEntriesByType("navigation")[0];
+  var ttfb = pageNav.responseStart - pageNav.requestStart;
 
   // TTFB - Time To First Byte
-  console.log("TTFB:", ttfb);
+  console.log("%cTTFB:", logStyle, ttfb + " ms");
 
   // FCP - First Contentful Paint
-  // const paintTimings = performance.getEntriesByType("paint");
-  // console.log(paintTimings);
-  // const FCP = paintTimings.find((paint) => paint.name === "first-paint");
-  // console.log(`First paint at ${FCP.startTime || "?"}ms`);
-
-  var observer = new PerformanceObserver(function (list) {
+  // Dom Load
+  // Window Load
+  var observer = new PerformanceObserver(function (list, obj) {
     var perfEntries = list.getEntries();
+    console.log(perfEntries);
     for (var i = 0; i < perfEntries.length; i++) {
-      // Process entries
-      // report back for analytics and monitoring
-      // ...
       var entry = perfEntries[i];
-      console.log(entry);
-      console.log(entry.name + ": " + entry.startTime + "ms");
+      if (entry.entryType === "navigation") {
+        console.log(entry.loadEventEnd);
+        var contentLoadTime = entry.domContentLoadedEventEnd;
+        var loadTime = entry.loadEventEnd;
+
+        console.log(`%c${entry.entryType}`, logStyle);
+        console.log("%cDOM Load Time: ", logStyle, contentLoadTime + " ms");
+        console.log("%cLoad Time: ", logStyle, loadTime + " ms");
+      } else {
+        console.log(`%c${entry.name} :`, logStyle, entry.startTime + " ms");
+      }
     }
   });
 
-  observer.observe({ entryTypes: ["paint"] });
-
-  // Dom Load
-
-  // Window Load
+  observer.observe({ entryTypes: ["paint", "navigation"] });
 
   // Network Timings
 })();
