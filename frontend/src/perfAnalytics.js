@@ -12,7 +12,7 @@
   // Window Load
   var observer = new PerformanceObserver(function (list, obj) {
     var perfEntries = list.getEntries();
-    console.log(perfEntries);
+    // console.log(perfEntries);
     for (var i = 0; i < perfEntries.length; i++) {
       var entry = perfEntries[i];
 
@@ -26,6 +26,9 @@
         console.log("%cLoad Time: ", logStyle, loadTime + " ms");
       } else if (entry.entryType === "paint") {
         console.log(`%c${entry.name} :`, logStyle, entry.startTime + " ms");
+      } else if (entry.entryType === "resource") {
+        console.log(`%c${entry.entryType}`, logStyle);
+        console.log(`${entry.name} : ` + entry.responseEnd);
       }
     }
   });
