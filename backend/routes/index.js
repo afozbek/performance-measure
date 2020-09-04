@@ -8,4 +8,10 @@ router.get("/", function (req, res, next) {
   });
 });
 
+router.post("/browser-metrics", function (req, res, next) {
+  console.log("receiving data ...");
+  console.log("body is ", req.body);
+  res.send(req.body);
+});
+
 module.exports = router;
