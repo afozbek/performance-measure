@@ -2,10 +2,9 @@
   var logStyle =
     "color: green; font-weight: bold; font-size: 14px; text-transform: uppercase";
 
-  var pageNav = performance.getEntriesByType("navigation")[0];
-  var ttfb = pageNav.responseStart - pageNav.requestStart;
-
   // TTFB - Time To First Byte
+  var navigationEntry = performance.getEntriesByType("navigation")[0];
+  var ttfb = navigationEntry.responseStart - navigationEntry.requestStart;
   console.log("%cTTFB:", logStyle, ttfb + " ms");
 
   // FCP - First Contentful Paint
@@ -16,6 +15,7 @@
     console.log(perfEntries);
     for (var i = 0; i < perfEntries.length; i++) {
       var entry = perfEntries[i];
+
       if (entry.entryType === "navigation") {
         console.log(entry.loadEventEnd);
         var contentLoadTime = entry.domContentLoadedEventEnd;
@@ -24,13 +24,13 @@
         console.log(`%c${entry.entryType}`, logStyle);
         console.log("%cDOM Load Time: ", logStyle, contentLoadTime + " ms");
         console.log("%cLoad Time: ", logStyle, loadTime + " ms");
-      } else {
+      } else if (entry.entryType === "paint") {
         console.log(`%c${entry.name} :`, logStyle, entry.startTime + " ms");
       }
     }
   });
 
-  observer.observe({ entryTypes: ["paint", "navigation"] });
+  observer.observe({ entryTypes: ["paint", "navigation", "resource"] });
 
   // Network Timings
 })();
