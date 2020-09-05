@@ -1,4 +1,4 @@
-let basePostUrl = "http://localhost:8080/browser-metrics";
+let basePostUrl = "https://performance-measure.herokuapp.com/browser-metrics";
 
 function logMetrics({
   measureName,
@@ -77,6 +77,9 @@ function logMetrics({
         });
         console.log(`%c${entry.name} :`, logStyle, entry.startTime + " ms");
       } else if (entryType === "resource") {
+        if (entry.initiatorType === "fetch") {
+          break;
+        }
         logMetrics({
           timestamp,
           measureName: "resource",
@@ -88,7 +91,7 @@ function logMetrics({
   });
 
   observer.observe({
-    entryTypes: ["paint", "navigation"],
+    entryTypes: ["paint", "navigation", "resource"],
     // type: "paint",
     buffered: true,
   });
@@ -97,3 +100,7 @@ function logMetrics({
   }, 10000);
   // Network Timings
 })();
+
+// setTimeout(() => {
+//   window.location.reload();
+// }, 1000 * 120);
