@@ -92,7 +92,7 @@ function logMetrics({
   });
 
   observer.observe({
-    entryTypes: ["paint", "navigation", "resource"],
+    entryTypes: ["paint", "navigation"],
     // type: "paint",
     buffered: true,
   });
