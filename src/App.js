@@ -6,8 +6,9 @@ import "./perfAnalytics";
 function App() {
   const [metrics, setMetrics] = useState([]);
   const [loading, setLoading] = useState(false);
-  const baseFetchUrl =
-    "https://performance-measure.herokuapp.com/browser-metrics";
+  // const baseFetchUrl =
+  //   "https://performance-measure.herokuapp.com/browser-metrics";
+  const baseFetchUrl = "http://localhost:8080/browser-metrics";
 
   useEffect(() => {
     setLoading(true);
