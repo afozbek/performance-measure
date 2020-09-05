@@ -7,6 +7,7 @@
 var app = require("../app");
 var debug = require("debug")("backend:server");
 var http = require("http");
+var mongoose = require("mongoose");
 
 /**
  * Get port from environment and store in Express.
@@ -24,11 +25,20 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
 
-console.log("Server listening on: " + port);
-server.listen(port);
-server.on("error", onError);
-server.on("listening", onListening);
+mongoose
+  .connect(MONGODB_URI)
+  .then((res) => {
+    console.log("Server listening on: " + port);
+    server.listen(port);
+    server.on("error", onError);
+    server.on("listening", onListening);
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 /**
  * Normalize a port into a number, string, or false.
