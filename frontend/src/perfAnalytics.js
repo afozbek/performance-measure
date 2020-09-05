@@ -54,12 +54,12 @@ function logMetrics({
         loadTime = entry.loadEventEnd;
         logMetrics({
           timestamp,
-          measureName: "DOM Load Time",
+          measureName: "dom-load-time",
           measureValue: contentLoadTime,
         });
         logMetrics({
           timestamp,
-          measureName: "Load Time",
+          measureName: "load-time",
           measureValue: loadTime,
         });
         console.log("%cDOM Load Time: ", logStyle, contentLoadTime + " ms");
@@ -79,7 +79,7 @@ function logMetrics({
       } else if (entryType === "resource") {
         logMetrics({
           timestamp,
-          measureName: "Resource",
+          measureName: "resource",
           measureValue: entry.responseEnd,
         });
         console.log("Resource :" + entry.responseEnd);
