@@ -6,9 +6,9 @@ import "./perfAnalytics";
 function App() {
   const [metrics, setMetrics] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const baseFetchUrl =
-  //   "https://performance-measure.herokuapp.com/browser-metrics";
-  const baseFetchUrl = "http://localhost:8080/browser-metrics";
+  const baseFetchUrl =
+    "https://performance-measure.herokuapp.com/browser-metrics";
+  // const baseFetchUrl = "http://localhost:8080/browser-metrics";
 
   useEffect(() => {
     setLoading(true);
@@ -23,21 +23,14 @@ function App() {
       });
   }, []);
 
-  const labels = [
-    "ttfb",
-    "dom-load-time",
-    "first-contentful-paint",
-    "load-time",
-  ];
-
   const chartList = metrics.map((metric) => {
     return (
       <Dashboard
         label={metric.measureName}
         key={metric._id}
         color="black"
-        metricData={metric.measureTimes}
-        timestampLabels={metric.timestamps}
+        metricData={metric.measureData.measureValueList}
+        timestampLabels={metric.measureData.timestampList}
       />
     );
   });

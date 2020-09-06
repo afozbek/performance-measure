@@ -5,7 +5,9 @@ import { Line } from "react-chartjs-2";
 const Dashboard = (props) => {
   const data = {
     // labels = last 30 min
-    labels: props.timestampLabels,
+    labels: props.timestampLabels.map((t) =>
+      new Date(t).toLocaleTimeString("tr-TR")
+    ),
 
     // label, data
     datasets: [
