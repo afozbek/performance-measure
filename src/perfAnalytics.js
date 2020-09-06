@@ -1,5 +1,5 @@
-// let basePostUrl = "https://performance-measure.herokuapp.com/browser-metrics";
-let basePostUrl = "http://localhost:8080/browser-metrics";
+let basePostUrl = "https://performance-measure.herokuapp.com/browser-metrics";
+// let basePostUrl = "http://localhost:8080/browser-metrics";
 
 function logMetrics({
   measureName,
@@ -92,7 +92,7 @@ function logMetrics({
   });
 
   observer.observe({
-    entryTypes: ["paint", "navigation", "resource"],
+    entryTypes: ["paint", "navigation"],
     // type: "paint",
     buffered: true,
   });
@@ -104,4 +104,4 @@ function logMetrics({
 
 // setTimeout(() => {
 //   window.location.reload();
-// }, 1000 * 120);
+// }, 1000 * 30);

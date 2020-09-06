@@ -6,9 +6,9 @@ import "./perfAnalytics";
 function App() {
   const [metrics, setMetrics] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const baseFetchUrl =
-  //   "https://performance-measure.herokuapp.com/browser-metrics";
-  const baseFetchUrl = "http://localhost:8080/browser-metrics";
+  const baseFetchUrl =
+    "https://performance-measure.herokuapp.com/browser-metrics";
+  // const baseFetchUrl = "http://localhost:8080/browser-metrics";
 
   useEffect(() => {
     setLoading(true);
@@ -23,70 +23,14 @@ function App() {
       });
   }, []);
 
-  const labels = [
-    "ttfb",
-    "dom-load-time",
-    "first-contentful-paint",
-    "load-time",
-  ];
-
-  const ttfbDatas = [];
-  const domLoadTimeDatas = [];
-  const loadTimeDatas = [];
-  const fcpDatas = [];
-  const timestampLabels = [];
-
-  metrics.forEach((metric) => {
-    switch (metric.measureName) {
-      case "ttfb":
-        timestampLabels.push(new Date(metric.timestamp).toLocaleTimeString());
-        ttfbDatas.push(metric.measureValue);
-        break;
-      case "dom-load-time":
-        domLoadTimeDatas.push(metric.measureValue);
-        break;
-      case "load-time":
-        loadTimeDatas.push(metric.measureValue);
-        break;
-      case "first-contentful-paint":
-        fcpDatas.push(metric.measureValue);
-        break;
-      default:
-        return;
-    }
-  });
-
-  const chartList = labels.map((label) => {
-    let metricData = [];
-    let color = "black";
-
-    switch (label) {
-      case "ttfb":
-        metricData = [...ttfbDatas];
-        color = "red";
-        break;
-      case "dom-load-time":
-        metricData = [...domLoadTimeDatas];
-        color = "blue";
-        break;
-      case "load-time":
-        metricData = [...loadTimeDatas];
-        color = "orange";
-        break;
-      case "first-contentful-paint":
-        metricData = [...fcpDatas];
-        break;
-      default:
-        return;
-    }
-
+  const chartList = metrics.map((metric) => {
     return (
       <Dashboard
-        label={label}
-        key={label}
-        color={color}
-        metricData={metricData}
-        timestampLabels={timestampLabels.slice(1, 30)}
+        label={metric.measureName}
+        key={metric._id}
+        color="black"
+        metricData={metric.measureData.measureValueList}
+        timestampLabels={metric.measureData.timestampList}
       />
     );
   });
