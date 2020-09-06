@@ -16,9 +16,10 @@ const Dashboard = ({ metric }) => {
       },
       { timestampList: [], measureValueList: [] }
     );
+
     setTimestampList(timestampList);
     setMeasureValueList(measureValueList);
-  }, []);
+  }, [metric]);
 
   const data = {
     // labels = last 30 min
@@ -45,7 +46,7 @@ const Dashboard = ({ metric }) => {
 };
 
 Dashboard.propTypes = {
-  metric: PropTypes.array.isRequired,
+  metric: PropTypes.object.isRequired,
 };
 
 export default Dashboard;
