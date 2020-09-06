@@ -45,7 +45,7 @@ function logMetrics({
     measureValue: ttfb,
   });
 
-  var observer = new PerformanceObserver(function (list, obj) {
+  const observer = new PerformanceObserver(function (list, obj) {
     var perfEntries = list.getEntries();
     // console.log(perfEntries);
     for (let entry of perfEntries) {
@@ -86,13 +86,13 @@ function logMetrics({
           measureName: "resource",
           measureValue: entry.responseEnd,
         });
-        console.log("Resource :" + entry.responseEnd);
+        console.log("Resource :", entry);
       }
     }
   });
 
   observer.observe({
-    entryTypes: ["paint", "navigation"],
+    entryTypes: ["paint", "navigation", "resource"],
     // type: "paint",
     buffered: true,
   });
