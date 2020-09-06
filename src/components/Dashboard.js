@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { Line } from "react-chartjs-2";
 
@@ -15,7 +16,7 @@ const Dashboard = (props) => {
         label: props.label,
         data: props.metricData,
         backgroundColor: "transparent",
-        borderColor: props.color,
+        borderColor: props.color || "black",
         borderWidth: 2,
       },
     ],
@@ -26,6 +27,13 @@ const Dashboard = (props) => {
       <Line data={data} options={{}} />
     </div>
   );
+};
+
+Dashboard.propTypes = {
+  label: PropTypes.string.isRequired,
+  metricData: PropTypes.array.isRequired,
+  timestampLabels: PropTypes.array.isRequired,
+  color: PropTypes.string,
 };
 
 export default Dashboard;
