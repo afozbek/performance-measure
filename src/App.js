@@ -24,15 +24,7 @@ function App() {
   }, []);
 
   const chartList = metrics.map((metric) => {
-    return (
-      <Dashboard
-        label={metric.measureName}
-        key={metric._id}
-        color="black"
-        metricData={metric.measureData.measureValueList}
-        timestampLabels={metric.measureData.timestampList}
-      />
-    );
+    return <Dashboard metric={metric} key={metric.measureName} />;
   });
 
   return (
