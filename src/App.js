@@ -22,11 +22,11 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setMetrics(data);
-
         setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
