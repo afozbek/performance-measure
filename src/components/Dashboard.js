@@ -6,6 +6,7 @@ import { Line } from "react-chartjs-2";
 const Dashboard = ({ metric }) => {
   const [timestamps, setTimestampList] = useState([]);
   const [measures, setMeasureValueList] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const { timestampList, measureValueList } = metric.measureData.reduce(
       (acc, curr) => {
@@ -19,6 +20,7 @@ const Dashboard = ({ metric }) => {
 
     setTimestampList(timestampList);
     setMeasureValueList(measureValueList);
+    setLoading(false);
   }, [metric]);
 
   const data = {
@@ -39,8 +41,7 @@ const Dashboard = ({ metric }) => {
 
   return (
     <div className="m-container__dashboard">
-      <Line data={data} options={{}} />
-      {/* <h1>Hello World</h1> */}
+      {loading ? <h1>Loading...</h1> : <Line data={data} options={{}} />}
     </div>
   );
 };
