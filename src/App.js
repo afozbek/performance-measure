@@ -24,6 +24,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const chartList = metrics.map((metric) => {
