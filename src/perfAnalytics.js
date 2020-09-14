@@ -93,7 +93,7 @@ function logMetrics({
 
   observer.observe({
     entryTypes: ["paint", "navigation", "resource"],
-    // type: "paint",
+    // Trigger events buffered
     buffered: true,
   });
   setTimeout(() => {
@@ -102,6 +102,7 @@ function logMetrics({
   // Network Timings
 })();
 
-// setTimeout(() => {
-//   window.location.reload();
-// }, 1000 * 30);
+// DEV - Fill database
+setTimeout(() => {
+  window.location.reload();
+}, 1000 * 80);
